@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    tools:context="css.cis3334.teambuilder.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_your_team_types"
+        android:fontFamily="monospace"
+        android:typeface="monospace"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP11"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP12"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="InefficientWeight" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP21"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP22"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="InefficientWeight" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP31"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP32"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="InefficientWeight" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP41"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP42"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="InefficientWeight" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP51"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP52"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/pokemon_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="InefficientWeight" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP61"
+            android:layout_width="120dp" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerP62"
+            android:layout_width="120dp" />
+    </LinearLayout>
+
+    <Button
+        android:text="@string/show_type_advantages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonGenerateTypeAdvantages" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewShowAdvantages"
+        android:textAlignment="viewStart" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/text_my_type_advantages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonText"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:text="@string/email_my_type_advantages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonEmail"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+</LinearLayout>

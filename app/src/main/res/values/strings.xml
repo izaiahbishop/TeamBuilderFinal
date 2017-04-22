@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TeamBuilder</string>
+    <string name="email_my_type_advantages">Email My Type Advantages</string>
+    <string name="enter_your_team_types">Enter Your Team Types!</string>
+    <string name="pokemon_1">Pokemon #1</string>
+    <string name="pokemon_2">Pokemon #2</string>
+    <string name="pokemon_3">Pokemon #3</string>
+    <string name="pokemon_4">Pokemon #4</string>
+    <string name="pokemon_5">Pokemon #5</string>
+    <string name="pokemon_6">Pokemon #6</string>
+    <string name="show_type_advantages">Show Type Advantages</string>
+    <string name="text_my_type_advantages">Text My Type Advantages</string>
+</resources>
