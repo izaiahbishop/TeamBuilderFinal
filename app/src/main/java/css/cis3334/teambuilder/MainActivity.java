@@ -2,6 +2,7 @@ package css.cis3334.teambuilder;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,20 +14,45 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import static android.R.attr.button;
 
 public class MainActivity extends AppCompatActivity {
 
     private String[] typeSpinner;
     private Spinner[] spinnerArray;
-    Button generateAdvantages, textAdvantages, emailAdvantages;
+    Button generateAdvantages, textAdvantages, emailAdvantages, buttonLogout;
     TextView showAdvantages;
     Spinner p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //track the user when they sign in or out using the firebaseAuth
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // User is signed out
+
+                    Log.d("BuildingTeams","onAuthStateChanged - User NOT is signed in");
+                    Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
+                    finish();
+                    startActivity(signInIntent);
+                } else {
+                    // User is signed out
+                    Log.d("BuildingTeams", "onAuthStateChanged:signed_out");
+                }
+
+            }
+        };
         showAdvantages = (TextView) findViewById(R.id.textViewShowAdvantages);
 
         this.typeSpinner = new String[]{
@@ -75,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         buttonGenerateTypeAdvantage();
         buttonSendText();
         buttonSendEmail();
+        signOut();
     }
 
     private void buttonGenerateTypeAdvantage() {
@@ -100,6 +127,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Enter types for your Pokemon first, and then click 'SHOW TYPE ADVANTAGES'",
                             Toast.LENGTH_SHORT).show(); //Error Checking
                 }
+            }
+        });
+    }
+
+    private void signOut () {
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mAuth.signOut();
             }
         });
     }
@@ -304,6 +340,20 @@ public class MainActivity extends AppCompatActivity {
             } //end for loop
 
         return advantageTypes.substring(0, advantageTypes.length() -2);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
 }

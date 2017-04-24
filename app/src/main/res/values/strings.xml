@@ -10,4 +10,9 @@
     <string name="pokemon_6">Pokemon #6</string>
     <string name="show_type_advantages">Show Type Advantages</string>
     <string name="text_my_type_advantages">Text My Type Advantages</string>
+    <string name="create_a_new_user">Create a New User</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="sign_in_with_existing_credentials">Sign In With Existing Credentials</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
