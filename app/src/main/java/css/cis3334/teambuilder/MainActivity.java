@@ -7,15 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 import static android.R.attr.button;
 
@@ -23,11 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] typeSpinner;
     private Spinner[] spinnerArray;
-    Button generateAdvantages, textAdvantages, emailAdvantages, buttonLogout;
+    String type11, type12, type21, type22, type31, type32, type41, type42, type51, type52, type61, type62;
+    Button generateAdvantages, textAdvantages, emailAdvantages, buttonLogout, buttonAdd, buttonDelete;
     TextView showAdvantages;
     Spinner p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    ListView listViewPokemon;
+    ArrayAdapter<Pokemon> pokemonAdapter;
+    List<Pokemon> pokemonList;
+    int positionSelected;
+    PokemonFirebaseData pokemonDataSource;
+    DatabaseReference myPokemonDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +113,14 @@ public class MainActivity extends AppCompatActivity {
                 p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62
         };
 
+        setupListView();
+        setupFirebaseDataChange();
         buttonGenerateTypeAdvantage();
         buttonSendText();
         buttonSendEmail();
+        setupAddButton();
         signOut();
+        setupDeleteButton();
     }
 
     private void buttonGenerateTypeAdvantage() {
@@ -127,6 +146,75 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Enter types for your Pokemon first, and then click 'SHOW TYPE ADVANTAGES'",
                             Toast.LENGTH_SHORT).show(); //Error Checking
                 }
+            }
+        });
+    }
+
+    private void setupFirebaseDataChange() {
+        pokemonDataSource = new PokemonFirebaseData();
+        myPokemonDbRef = pokemonDataSource.open();
+        myPokemonDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("Pokemon", "Starting onDataChange()");        // debugging log
+                pokemonList = pokemonDataSource.getAllPokemon(dataSnapshot);
+                // Instantiate a custom adapter for displaying each fish
+                pokemonAdapter = new PokemonAdapter(MainActivity.this, android.R.layout.simple_list_item_single_choice, pokemonList);
+                // Apply the adapter to the list
+                listViewPokemon.setAdapter(pokemonAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Pokemon", "onCancelled: ");
+            }
+        });
+    }
+
+    private void setupAddButton() {
+        // Set up the button to add a new fish using a seperate activity
+        buttonAdd = (Button) findViewById(R.id.buttonAddPokemon);
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                pokemonDataSource.open();
+                type11 = p11.getSelectedItem().toString();
+                type12 = p12.getSelectedItem().toString();
+                type21 = p21.getSelectedItem().toString();
+                type22 = p22.getSelectedItem().toString();
+                type31 = p31.getSelectedItem().toString();
+                type32 = p32.getSelectedItem().toString();
+                type41 = p41.getSelectedItem().toString();
+                type42 = p42.getSelectedItem().toString();
+                type51 = p51.getSelectedItem().toString();
+                type52 = p52.getSelectedItem().toString();
+                type61 = p61.getSelectedItem().toString();
+                type62 = p62.getSelectedItem().toString();
+
+                pokemonDataSource.createPokemon(type11, type12, type21, type22, type31, type32, type41, type42, type51, type52, type61, type62);
+            }
+        });
+    }
+
+    private void setupDeleteButton() {
+        // Set up the button to display details on one fish using a seperate activity
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("MAIN", "onClick for Delete");
+                Log.d("MAIN", "Delete at position " + positionSelected);
+                pokemonDataSource.deletePokemon(pokemonList.get(positionSelected));
+                pokemonAdapter.remove( pokemonList.get(positionSelected) );
+                pokemonAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void setupListView() {
+        listViewPokemon = (ListView) findViewById(R.id.ListViewPokemon);
+        listViewPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View parent,
+                                    int position, long id) {
+                positionSelected = position;
+                Log.d("MAIN", "Pokemon selected at position " + positionSelected);
             }
         });
     }
