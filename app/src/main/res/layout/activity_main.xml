@@ -194,7 +194,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Text Advantages"
+            android:text="@string/text_advantages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonText"
@@ -203,7 +203,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:text="Email Advantages"
+            android:text="@string/email_advantages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonEmail"
@@ -218,20 +218,22 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Add to Firebase"
+            android:text="@string/add_to_firebase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAddPokemon"
             android:textSize="12sp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
 
         <Button
-            android:text="Delete from Firebase"
+            android:text="@string/delete_from_firebase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonDelete"
             android:textSize="12sp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
     <ListView
