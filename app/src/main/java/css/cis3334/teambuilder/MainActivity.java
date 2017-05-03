@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
         showAdvantages = (TextView) findViewById(R.id.textViewShowAdvantages);
 
         this.typeSpinner = new String[]{

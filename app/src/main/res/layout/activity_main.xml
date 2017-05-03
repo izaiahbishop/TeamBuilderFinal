@@ -33,20 +33,22 @@
 
         <TextView
             android:text="@string/pokemon_1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP11"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP12"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,19 +60,20 @@
             android:text="@string/pokemon_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@android:color/holo_red_dark"
-            tools:ignore="InefficientWeight" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP21"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP22"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,19 +85,20 @@
             android:text="@string/pokemon_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@android:color/holo_red_dark"
-            tools:ignore="InefficientWeight" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP31"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP32"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -106,19 +110,20 @@
             android:text="@string/pokemon_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@android:color/holo_red_dark"
-            tools:ignore="InefficientWeight" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP41"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP42"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -130,19 +135,20 @@
             android:text="@string/pokemon_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@android:color/holo_red_dark"
-            tools:ignore="InefficientWeight" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP51"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP52"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -154,19 +160,20 @@
             android:text="@string/pokemon_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@android:color/holo_red_dark"
-            tools:ignore="InefficientWeight" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP61"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_height="wrap_content"
             android:id="@+id/spinnerP62"
-            android:layout_width="120dp" />
+            android:layout_width="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <Button
@@ -187,21 +194,22 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="@string/text_my_type_advantages"
-            android:layout_width="170dp"
+            android:text="Text Advantages"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonText"
             tools:ignore="ButtonStyle"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_weight="1"/>
 
         <Button
-            android:text="@string/email_my_type_advantages"
-            android:layout_width="170dp"
+            android:text="Email Advantages"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonEmail"
-            android:layout_weight="1"
             tools:ignore="ButtonStyle"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -210,18 +218,20 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Add Team to Firebase"
-            android:layout_width="173dp"
+            android:text="Add to Firebase"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAddPokemon"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_weight="1"/>
 
         <Button
-            android:text="Delete Team from Firebase"
-            android:layout_width="wrap_content"
+            android:text="Delete from Firebase"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonDelete"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <ListView
@@ -232,7 +242,7 @@
     <Button
         android:text="@string/sign_out"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:id="@+id/buttonLogout" />
 
 </LinearLayout>
