@@ -27,6 +27,17 @@ import java.util.List;
 
 import static android.R.attr.button;
 
+/**
+ * This class extends AppCompatActivity, which is the base class for activities that use
+ * the support library action bar features. This class sets up the main functionalities of
+ * the Pokemon Team Builder application including: setting up spinners, setting up buttons
+ * to save teams and delete teams to/from firebase, and setting up intents to text and email
+ * team advantages.
+ *
+ * @author Izaiah Bishop
+ *
+ * @version 5.5.2017
+ */
 public class MainActivity extends AppCompatActivity {
 
     private String[] typeSpinner;
@@ -34,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     String type11, type12, type21, type22, type31, type32, type41, type42, type51, type52, type61, type62;
     Button generateAdvantages, textAdvantages, emailAdvantages, buttonLogout, buttonAdd, buttonDelete;
     TextView showAdvantages;
-    Spinner p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;
+    Spinner p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;             //Pokemon can have two types, hence (p11) pokemon 1 type 1, (p12) pokemon 1 type 2, etc...
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     ListView listViewPokemon;
@@ -44,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     PokemonFirebaseData pokemonDataSource;
     DatabaseReference myPokemonDbRef;
 
+    /**
+     *
+     *
+     * @param savedInstanceState Refers to the state of the bundle object passed into onCreate.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,170 +270,170 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < spinnerArray.length; i++) {
             if (spinnerArray[i].getSelectedItem().toString().contains("Fire")) {
-                if (advantageTypes.contains("Grass") == false) {
+                if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
-                if (advantageTypes.contains("Ice") == false) {
+                if (!advantageTypes.contains("Ice")) {
                     advantageTypes += "Ice, ";
                 }
-                if (advantageTypes.contains("Steel") == false) {
+                if (!advantageTypes.contains("Steel")) {
                     advantageTypes += "Steel, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Fighting")) {
-                if (advantageTypes.contains("Normal") == false) {
+                if (!advantageTypes.contains("Normal")) {
                     advantageTypes += "Normal, ";
                 }
-                if (advantageTypes.contains("Ice") == false) {
+                if (!advantageTypes.contains("Ice")) {
                     advantageTypes += "Ice, ";
                 }
-                if (advantageTypes.contains("Rock") == false) {
+                if (!advantageTypes.contains("Rock")) {
                     advantageTypes += "Rock, ";
                 }
-                if (advantageTypes.contains("Dark") == false) {
+                if (!advantageTypes.contains("Dark")) {
                     advantageTypes += "Dark, ";
                 }
-                if (advantageTypes.contains("Steel") == false) {
+                if (!advantageTypes.contains("Steel")) {
                     advantageTypes += "Steel, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Water")) {
-                if (advantageTypes.contains("Fire") == false) {
+                if (!advantageTypes.contains("Fire")) {
                     advantageTypes += "Fire, ";
                 }
-                if (advantageTypes.contains("Ground") == false) {
+                if (!advantageTypes.contains("Ground")) {
                     advantageTypes += "Ground, ";
                 }
-                if (advantageTypes.contains("Rock") == false) {
+                if (!advantageTypes.contains("Rock")) {
                     advantageTypes += "Rock, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Electric")) {
-                if (advantageTypes.contains("Water") == false) {
+                if (!advantageTypes.contains("Water")) {
                     advantageTypes += "Water, ";
                 }
-                if (advantageTypes.contains("Flying") == false) {
+                if (!advantageTypes.contains("Flying")) {
                     advantageTypes += "Flying, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Grass")) {
-                if (advantageTypes.contains("Water") == false) {
+                if (!advantageTypes.contains("Water")) {
                     advantageTypes += "Water, ";
                 }
-                if (advantageTypes.contains("Ground") == false) {
+                if (!advantageTypes.contains("Ground")) {
                     advantageTypes += "Ground, ";
                 }
-                if (advantageTypes.contains("Rock") == false) {
+                if (!advantageTypes.contains("Rock")) {
                     advantageTypes += "Rock, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Ice")) {
-                if (advantageTypes.contains("Grass") == false) {
+                if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
-                if (advantageTypes.contains("Ground") == false) {
+                if (!advantageTypes.contains("Ground")) {
                     advantageTypes += "Ground, ";
                 }
-                if (advantageTypes.contains("Flying") == false) {
+                if (!advantageTypes.contains("Flying")) {
                     advantageTypes += "Flying, ";
                 }
-                if (advantageTypes.contains("Dragon") == false) {
+                if (!advantageTypes.contains("Dragon")) {
                     advantageTypes += "Dragon, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Poison")) {
-                if (advantageTypes.contains("Grass") == false) {
+                if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
-                if (advantageTypes.contains("Fairy") == false) {
+                if (!advantageTypes.contains("Fairy")) {
                     advantageTypes += "Fairy, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Ground")) {
-                if (advantageTypes.contains("Fire") == false) {
+                if (!advantageTypes.contains("Fire")) {
                     advantageTypes += "Fire, ";
                 }
-                if (advantageTypes.contains("Poison") == false) {
+                if (!advantageTypes.contains("Poison")) {
                     advantageTypes += "Poison, ";
                 }
-                if (advantageTypes.contains("Rock") == false) {
+                if (!advantageTypes.contains("Rock")) {
                     advantageTypes += "Rock, ";
                 }
-                if (advantageTypes.contains("Steel") == false) {
+                if (!advantageTypes.contains("Steel")) {
                     advantageTypes += "Steel, ";
                 }
-                if (advantageTypes.contains("Electric") == false) {
+                if (!advantageTypes.contains("Electric")) {
                     advantageTypes += "Electric, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Flying")) {
-                if (advantageTypes.contains("Grass") == false) {
+                if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
-                if (advantageTypes.contains("Fighting") == false) {
+                if (!advantageTypes.contains("Fighting")) {
                     advantageTypes += "Fighting, ";
                 }
-                if (advantageTypes.contains("Bug") == false) {
+                if (!advantageTypes.contains("Bug")) {
                     advantageTypes += "Bug, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Psychic")) {
-                if (advantageTypes.contains("Fighting") == false) {
+                if (!advantageTypes.contains("Fighting")) {
                     advantageTypes += "Fighting, ";
                 }
-                if (advantageTypes.contains("Poison") == false) {
+                if (!advantageTypes.contains("Poison")) {
                     advantageTypes += "Poison, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Bug")) {
-                if (advantageTypes.contains("Grass") == false) {
+                if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
-                if (advantageTypes.contains("Psychic") == false) {
+                if (!advantageTypes.contains("Psychic")) {
                     advantageTypes += "Psychic, ";
                 }
-                if (advantageTypes.contains("Dark") == false) {
+                if (!advantageTypes.contains("Dark")) {
                     advantageTypes += "Dark, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Rock")) {
-                if (advantageTypes.contains("Fire") == false) {
+                if (!advantageTypes.contains("Fire")) {
                     advantageTypes += "Fire, ";
                 }
-                if (advantageTypes.contains("Ice") == false) {
+                if (!advantageTypes.contains("Ice")) {
                     advantageTypes += "Ice, ";
                 }
-                if (advantageTypes.contains("Flying") == false) {
+                if (!advantageTypes.contains("Flying")) {
                     advantageTypes += "Flying, ";
                 }
-                if (advantageTypes.contains("Bug") == false) {
+                if (!advantageTypes.contains("Bug")) {
                     advantageTypes += "Bug, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Ghost")) {
-                if (advantageTypes.contains("Psychic") == false) {
+                if (!advantageTypes.contains("Psychic")) {
                     advantageTypes += "Psychic, ";
                 }
-                if (advantageTypes.contains("Ghost") == false) {
+                if (!advantageTypes.contains("Ghost")) {
                     advantageTypes += "Ghost, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Dragon")) {
-                if (advantageTypes.contains("Dragon") == false) {
+                if (!advantageTypes.contains("Dragon")) {
                     advantageTypes += "Dragon, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Dark")) {
-                if (advantageTypes.contains("Psychic") == false) {
+                if (!advantageTypes.contains("Psychic")) {
                     advantageTypes += "Psychic, ";
                 }
-                if (advantageTypes.contains("Ghost") == false) {
+                if (!advantageTypes.contains("Ghost")) {
                     advantageTypes += "Ghost, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Steel")) {
-                if (advantageTypes.contains("Ice") == false) {
+                if (!advantageTypes.contains("Ice")) {
                     advantageTypes += "Ice, ";
                 }
-                if (advantageTypes.contains("Rock") == false) {
+                if (!advantageTypes.contains("Rock")) {
                     advantageTypes += "Rock, ";
                 }
-                if (advantageTypes.contains("Fairy") == false) {
+                if (!advantageTypes.contains("Fairy")) {
                     advantageTypes += "Fairy, ";
                 }
             } else if (spinnerArray[i].getSelectedItem().toString().contains("Fairy")) {
-                if (advantageTypes.contains("Dark") == false) {
+                if (!advantageTypes.contains("Dark")) {
                     advantageTypes += "Dark, ";
                 }
-                if (advantageTypes.contains("Dragon") == false) {
+                if (!advantageTypes.contains("Dragon")) {
                     advantageTypes += "Dragon, ";
                 }
-                if (advantageTypes.contains("Fighting") == false) {
+                if (!advantageTypes.contains("Fighting")) {
                     advantageTypes += "Fighting, ";
                 }
             } else if (i == spinnerArray.length - 1 && advantageTypes.contentEquals("Your team is strong against the following types: ")){

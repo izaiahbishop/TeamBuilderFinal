@@ -17,16 +17,26 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
- * Created by ibishop on 4/22/2017.
+ * This class contains buttons and their logic for users to sign into the application.
+ * This class extends AppCompatActivity, which is the base class for activities that use
+ * the support library action bar features.
+ *
+ * @author Izaiah Bishop
+ *
+ * @version 5.5.2017
  */
-
 public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     Button buttonLogin, buttonCreateNewUser;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-
+    /**
+     * This method opens the activity login layout for users to sign into the app. We call
+     * both the login and create buttons as well.
+     *
+     * @param savedInstanceState Refers to the state of the bundle object passed into onCreate.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         createButton();
     }
 
-
+    /**
+     * This contains logic for the login button. There is an on click listener to
+     * detect when the button is being pushed. Email and password text are
+     * converted to a string and sent as parameters to the signIn method.
+     */
     private void loginButton() {
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.d("CIS3334", "Signing in the user");
+                Log.d("Pokemon", "Signing in the user");
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 signIn(email, password);
@@ -50,6 +64,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This contains logic for the create user button. There is an on click listener to
+     * detect when the button is being pushed. Email and password text are
+     * converted to a string and sent as parameters to the createAccount method.
+     */
     private void createButton() {
         buttonCreateNewUser = (Button) findViewById(R.id.buttonCreate);
         buttonCreateNewUser.setOnClickListener(new View.OnClickListener() {
@@ -63,35 +82,44 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method uses firebase authentication to create new users.
+     *
+     * @param email The email of the user passed as a string
+     * @param password The password of the user passed as a string
+     */
     private void createAccount(String email, String password) {
-        //create account for new users
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {  //update listener.
-                if (!task.isSuccessful()) { //when failed
+                if (!task.isSuccessful()) {         //when failed
                     Toast.makeText(LoginActivity.this, "You cannot create this user. Please enter valid credentials, or sign in with existing credentials.",Toast.LENGTH_LONG).show();
-                } else {
-                    //return to MainActivity is login works
+                } else {                            //return to MainActivity if login works
                     Intent mainActIntent = new Intent(getBaseContext(), MainActivity.class);
-                    finish();
-                    startActivity(mainActIntent);
+                    finish();                       //Close LoginActivity
+                    startActivity(mainActIntent);   //Start up the MainActivity
                 }
             }
         });
     }
 
+    /**
+     * This method uses firebase authentication to sign in existing users.
+     *
+     * @param email The email of the user passed as a string
+     * @param password The password of the user passed as a string
+     */
     private void signIn(String email, String password) {
         //sign in the recurrent user with email and password previously created.
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() { //add to listener
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) { //when failed
+                if (!task.isSuccessful()) {         //when failed
                     Toast.makeText(LoginActivity.this, "Sign in failed. Please use existing credentials, or create a new user.", Toast.LENGTH_LONG).show();
-                } else {
-                    //return to MainActivity is login works
+                } else {                            //return to MainActivity if login works
                     Intent mainActIntent = new Intent(getBaseContext(), MainActivity.class);
-                    finish();
-                    startActivity(mainActIntent);
+                    finish();                       //Close LoginActivity
+                    startActivity(mainActIntent);   //Start up the MainActivity
                 }
             }
         });
