@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ibishop on 4/26/2017.
+ * This class contains the logic for FireBase data storage.
+ *
+ * @author Izaiah Bishop
  */
-
 public class PokemonFirebaseData {
     DatabaseReference myPokemonDbRef;
     public static final String PokemonDataTag = "Pokemon Data";
@@ -22,10 +23,24 @@ public class PokemonFirebaseData {
         return myPokemonDbRef;
     }
 
-    public void close() {
-
-    }
-
+    /**
+     * Creating a Pokemon Team to be placed in the database.
+     *
+     * @param p11 The first type of the first pokemon.
+     * @param p12 The second type of the first pokemon.
+     * @param p21 The first type of the second pokemon.
+     * @param p22 The second type of the second pokemon.
+     * @param p31 The first type of the third pokemon.
+     * @param p32 The second type of the third pokemon.
+     * @param p41 The first type of the fourth pokemon.
+     * @param p42 The second type of the fourth pokemon.
+     * @param p51 The first type of the fifth pokemon.
+     * @param p52 The second type of the fifth pokemon.
+     * @param p61 The first type of the sixth pokemon.
+     * @param p62 The second type of the sixth pokemon.
+     *
+     * @return The Pokemon object.
+     */
     public Pokemon createPokemon( String p11, String p12, String p21,
                                   String p22, String p31, String p32, String p41,
                                   String p42, String p51, String p52, String p61, String p62) {           //Added String rating as a parameter
@@ -38,11 +53,23 @@ public class PokemonFirebaseData {
         return newPokemon;
     }
 
+    /**
+     * This method will delete a pokemon team from the FireBase database.
+     *
+     * @param pokemon The pokemon team to be deleted
+     */
     public void deletePokemon(Pokemon pokemon) {
         String key = pokemon.getKey();
         myPokemonDbRef.child(key).removeValue();
     }
 
+    /**
+     * This method will return a list of all pokemon teams from FireBase
+     *
+     * @param dataSnapshot The current data representation of Pokemon Teams
+     *
+     * @return A list of all Pokemon Teams
+     */
     public List<Pokemon> getAllPokemon(DataSnapshot dataSnapshot) {
         List<Pokemon> pokemonList = new ArrayList<Pokemon>();
         for (DataSnapshot data : dataSnapshot.getChildren()) {

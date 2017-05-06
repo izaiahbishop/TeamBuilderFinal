@@ -11,9 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by ibishop on 4/26/2017.
+ * This class contains the logic for the Pokemon Adapter to put a Pokemon object into a row layout.
+ *
+ * @author Izaiah Bishop
  */
-
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
     private List<Pokemon> pokemonList;            // The list of fish to display
     private Context context;                // The original activity that displays this
@@ -21,10 +22,11 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
     TextView p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;
 
     /**
-     *   Basic constructo
+     * Basic constructor for the PokemonAdapter
+     *
      * @param context - The activity calling this
      * @param resource  The layout to use to display
-     * @param pokemonList  The list of fish to display
+     * @param pokemonList  The list of Pokemon to display
      */
     public PokemonAdapter(Context context, int resource, List<Pokemon> pokemonList) {
         super(context, resource, pokemonList);
@@ -33,9 +35,17 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
         this.pokemonList = pokemonList;
     }
 
+    /**
+     * Setting the view to the values of the Pokemon array adapter.
+     *
+     * @param position The position of the object to be set
+     * @param convertView The old view to possibly re-use
+     * @param parent Parent view of the layout
+     * @return View the view to be displayed to the user.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //get the fish we are displaying
+        //get the Pokemon we are displaying
         Pokemon pokemon = pokemonList.get(position);
         View view;
 

@@ -10,22 +10,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
 
-import static android.R.attr.button;
 
 /**
  * This class extends AppCompatActivity, which is the base class for activities that use
@@ -40,7 +36,6 @@ import static android.R.attr.button;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private String[] typeSpinner;
     private Spinner[] spinnerArray;
     String type11, type12, type21, type22, type31, type32, type41, type42, type51, type52, type61, type62;
     Button generateAdvantages, textAdvantages, emailAdvantages, buttonLogout, buttonAdd, buttonDelete;
@@ -56,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myPokemonDbRef;
 
     /**
-     *
+     * onCreate checks the authentication status of a user. Spinners are set up for the Pokemon types,
+     * and an array adapter of type string based on the values in the spinner. Lastly, onCreate calls
+     * all of the buttons in the MainActivity.
      *
      * @param savedInstanceState Refers to the state of the bundle object passed into onCreate.
      */
@@ -68,11 +65,10 @@ public class MainActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                //track the user when they sign in or out using the firebaseAuth
+                //track the user when they sign in or out
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // User is signed out
-
                     Log.d("BuildingTeams","onAuthStateChanged - User NOT is signed in");
                     Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
                     finish();
@@ -81,13 +77,12 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed out
                     Log.d("BuildingTeams", "onAuthStateChanged:signed_out");
                 }
-
             }
         };
 
         showAdvantages = (TextView) findViewById(R.id.textViewShowAdvantages);
 
-        this.typeSpinner = new String[]{
+        String[] typeSpinner = new String[]{
                 "", "Normal", "Fire", "Water", "Electric",
                 "Grass", "Ice", "Fighting", "Poison",
                 "Ground", "Flying", "Psychic", "Bug",
@@ -109,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         p62 = (Spinner) findViewById(R.id.spinnerP62);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, typeSpinner);
 
         p11.setAdapter(adapter);
@@ -125,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         p61.setAdapter(adapter);
         p62.setAdapter(adapter);
 
-
         this.spinnerArray = new Spinner[]{
                 p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62
         };
@@ -140,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
         setupDeleteButton();
     }
 
+    /**
+     * When pushed, this button will call the checkSpinners method, and set the returned value
+     * equal to the showAdvantages textView.
+     */
     private void buttonGenerateTypeAdvantage() {
         generateAdvantages = (Button) findViewById(R.id.buttonGenerateTypeAdvantages);
         generateAdvantages.setOnClickListener(new View.OnClickListener() {
@@ -150,16 +148,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When pushed, this button opens the texting/SMS intent, and the list of advantages  is
+     * put into the subject of the text message.
+     */
     private void buttonSendText() {
         textAdvantages = (Button) findViewById(R.id.buttonText);
         textAdvantages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //This if/else is error checking to see if the user has generated any type advantages to send.
                 if (showAdvantages.getText().toString().contains("Your team is strong against the following types: ")){
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                     sendIntent.setData(Uri.parse("sms:"));
                     sendIntent.putExtra("sms_body", showAdvantages.getText().toString());
                     startActivity(sendIntent);
-                } else {
+                } else { //If the user tries to push this button before generating type advantages
                     Toast.makeText(MainActivity.this, "Enter types for your Pokemon first, and then click 'SHOW TYPE ADVANTAGES'",
                             Toast.LENGTH_SHORT).show(); //Error Checking
                 }
@@ -167,28 +170,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupFirebaseDataChange() {
-        pokemonDataSource = new PokemonFirebaseData();
-        myPokemonDbRef = pokemonDataSource.open();
-        myPokemonDbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("Pokemon", "Starting onDataChange()");        // debugging log
-                pokemonList = pokemonDataSource.getAllPokemon(dataSnapshot);
-                // Instantiate a custom adapter for displaying each fish
-                pokemonAdapter = new PokemonAdapter(MainActivity.this, android.R.layout.simple_list_item_single_choice, pokemonList);
-                // Apply the adapter to the list
-                listViewPokemon.setAdapter(pokemonAdapter);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("Pokemon", "onCancelled: ");
+    /**
+     * When pushed, this button opens the Email intent, and the list of advantages  is
+     * put into the subject of the message.
+     */
+    private void buttonSendEmail() {
+        emailAdvantages = (Button) findViewById(R.id.buttonEmail);
+        emailAdvantages.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //This if/else is error checking to see if the user has generated any type advantages to send.
+                if (showAdvantages.getText().toString().contains("Your team is strong against the following types: ")) {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                    intent.putExtra(Intent.EXTRA_EMAIL, "");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, showAdvantages.getText().toString());
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                } else { //If the user tries to push this button before generating type advantages
+                    Toast.makeText(MainActivity.this, "Enter types for your Pokemon first, and then click 'SHOW TYPE ADVANTAGES'",
+                            Toast.LENGTH_SHORT).show(); //Error Checking
+                }
             }
         });
     }
 
+    /**
+     * This button will take each value in the spinners, and add it to the FireBase data storage;
+     * effectively storing a user's team.
+     */
     private void setupAddButton() {
-        // Set up the button to add a new fish using a seperate activity
         buttonAdd = (Button) findViewById(R.id.buttonAddPokemon);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -211,13 +222,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When pushed, this button will take the selected team already in FireBase storage, and delete it.
+     */
     private void setupDeleteButton() {
-        // Set up the button to display details on one fish using a seperate activity
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("MAIN", "onClick for Delete");
-                Log.d("MAIN", "Delete at position " + positionSelected);
+                Log.d("TeamBuilder", "onClick for Delete");
+                Log.d("TeamBuilder", "Delete at position " + positionSelected);
                 pokemonDataSource.deletePokemon(pokemonList.get(positionSelected));
                 pokemonAdapter.remove( pokemonList.get(positionSelected) );
                 pokemonAdapter.notifyDataSetChanged();
@@ -225,17 +238,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method sets up the handler for adding new data the the FireBase database.
+     */
+    private void setupFirebaseDataChange() {
+        pokemonDataSource = new PokemonFirebaseData();
+        myPokemonDbRef = pokemonDataSource.open();
+        myPokemonDbRef.addValueEventListener(new ValueEventListener() {
+            //If data is changed and submitted to the Database
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("TeamBuilder", "Starting onDataChange()");
+                pokemonList = pokemonDataSource.getAllPokemon(dataSnapshot);
+                // Instantiate a custom adapter for displaying each Pokemon
+                pokemonAdapter = new PokemonAdapter(MainActivity.this, android.R.layout.simple_list_item_single_choice, pokemonList);
+                // Apply the adapter to the list
+                listViewPokemon.setAdapter(pokemonAdapter);
+            }
+            // If there is a database error
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("TeamBuilder", "onCancelled: ");
+            }
+        });
+    }
+
+    /**
+     * This method sets up the list view of the Pokemon object
+     */
     private void setupListView() {
         listViewPokemon = (ListView) findViewById(R.id.ListViewPokemon);
         listViewPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapter, View parent,
                                     int position, long id) {
                 positionSelected = position;
-                Log.d("MAIN", "Pokemon selected at position " + positionSelected);
+                Log.d("TeamBuilder", "Pokemon selected at position " + positionSelected);
             }
         });
     }
 
+    /**
+     * This method allows users to sign out of the application.
+     */
     private void signOut () {
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
@@ -245,31 +289,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void buttonSendEmail() {
-        emailAdvantages = (Button) findViewById(R.id.buttonEmail);
-        emailAdvantages.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (showAdvantages.getText().toString().contains("Your team is strong against the following types: ")) {
-                    Intent intent = new Intent(Intent.ACTION_SENDTO);
-                    intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-                    intent.putExtra(Intent.EXTRA_EMAIL, "");
-                    intent.putExtra(Intent.EXTRA_SUBJECT, showAdvantages.getText().toString());
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "Enter types for your Pokemon first, and then click 'SHOW TYPE ADVANTAGES'",
-                            Toast.LENGTH_SHORT).show(); //Error Checking
-                }
-            }
-        });
-    }
-
+    /**
+     * This app checks each spinner for its string value. It then adds advantageous types
+     * based on the types entered in the spinner. This is the main purpose of the app.
+     *
+     * @return String The concatenated list of advantageous types.
+     */
     private String checkSpinners() {
         String advantageTypes = "Your team is strong against the following types: ";
 
+        //The array of spinners was set up for this for loop. Check each spinner for a value and add advantageous types.
         for (int i = 0; i < spinnerArray.length; i++) {
             if (spinnerArray[i].getSelectedItem().toString().contains("Fire")) {
+                //Don't want to display advantageous types more than once, so see if the string already contains it.
                 if (!advantageTypes.contains("Grass")) {
                     advantageTypes += "Grass, ";
                 }
@@ -436,23 +468,35 @@ public class MainActivity extends AppCompatActivity {
                 if (!advantageTypes.contains("Fighting")) {
                     advantageTypes += "Fighting, ";
                 }
+                //This else if checks the string at the last spinner. If the user has only entered "Normal",
+                // or "" in the spinners, then they will any type advantages; an error message will be displayed.
             } else if (i == spinnerArray.length - 1 && advantageTypes.contentEquals("Your team is strong against the following types: ")){
                 Toast.makeText(MainActivity.this, "Enter More Types to Learn your Advantages!",
                         Toast.LENGTH_SHORT).show(); //Error Checking
+                //The string must be set to two spaces for the substring below
                 advantageTypes = "  ";
             }
 
-            } //end for loop
+        } //end for loop
 
+        // To make the string more formal, I removed the last space and comma using a substring method call
         return advantageTypes.substring(0, advantageTypes.length() -2);
     }
 
+    /**
+     * Starting up and adding the listener for FireBase authentication. This
+     * will check if the user is signed in.
+     */
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
+    /**
+     * This method calls onStop from the super class. In addition if the listener is not set to null
+     * then the FireBase authentication will remove the listener.
+     */
     @Override
     public void onStop() {
         super.onStop();
