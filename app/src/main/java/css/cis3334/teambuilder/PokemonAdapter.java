@@ -16,7 +16,7 @@ import java.util.List;
  * @author Izaiah Bishop
  */
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
-    private List<Pokemon> pokemonList;            // The list of fish to display
+    private List<Pokemon> pokemonList;            // The list of pokemon to display
     private Context context;                // The original activity that displays this
     private int layoutResource;                   // the layout to use
     TextView p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62;
